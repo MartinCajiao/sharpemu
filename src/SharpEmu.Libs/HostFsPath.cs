@@ -74,7 +74,9 @@ internal static class HostFsPath
     /// </summary>
     public static string DecodeHostPathSegment(string segment)
     {
-        if (string.IsNullOrEmpty(segment) || segment.IndexOf('%') < 0)
+        if (!OperatingSystem.IsWindows() ||
+            string.IsNullOrEmpty(segment) ||
+            segment.IndexOf('%') < 0)
         {
             return segment;
         }

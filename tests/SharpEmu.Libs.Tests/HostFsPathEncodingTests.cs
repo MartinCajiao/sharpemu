@@ -33,4 +33,16 @@ public sealed class HostFsPathEncodingTests
         const string guest = "Arcade Spirits: The New Challengers";
         Assert.Equal(guest, HostFsPath.EncodeHostPathSegment(guest));
     }
+
+    [Fact]
+    public void DecodeIsNoOpOnNonWindows()
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            return;
+        }
+
+        const string host = "literal%3Aname.txt";
+        Assert.Equal(host, HostFsPath.DecodeHostPathSegment(host));
+    }
 }
